@@ -72,3 +72,44 @@ h3 {
   background: #444;
   color: #7fffd4;
 }
+
+/* Basic Panels Layout */
+.box-users {
+  float: left;
+  min-width: 33.33%;
+  padding: 10px;
+  text-align: center;
+}
+
+.box-users ul {
+  list-style: none;
+  border-style: solid;
+  /* box-shadow: 3px 3px rgb(235, 223, 223);
+  border-color: rgb(235, 223, 223); */
+  box-shadow: 3px 3px #52a78a;
+  border-color: #52a78a;
+  border-width: 2px;
+}
+
+.box-users ul li {
+  text-align: left;
+  padding: 10px;
+}
+
+.user-greetings #section-header {
+  padding-top: 100px;
+}
+
+.user-greetings .user-details {
+  font-weight: 600;
+}
+
+.user-greetings .details-id {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.box-users ul:hover {
+  background: #444;
+  color: #7fffd4;
+}
