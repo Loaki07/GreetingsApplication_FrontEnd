@@ -31,6 +31,10 @@ h3 {
   padding: 0 20px;
 }
 
+.clr {
+  clear: both;
+}
+
 /* Navbar */
 #navbar {
   background: #fff;
