@@ -73,10 +73,43 @@ h3 {
   color: #7fffd4;
 }
 
+/* Sidebar */
+.user-greetings {
+  padding: 50px 20px 20px 20px;
+}
+
+.user-greetings .side-menu {
+  float: left;
+  max-width: 23%;
+  padding: 20px;
+}
+
+.user-greetings .side-menu ul {
+  list-style: none;
+}
+
+.user-greetings .side-menu ul li a {
+  display: block;
+  text-align: center;
+  padding: 50px;
+  font-size: 30px;
+}
+
+.user-greetings .side-menu ul li a:hover {
+  background: #444;
+  color: #7fffd4;
+  border-radius: 10px;
+}
+
+.user-greetings .user-info {
+  float: right;
+  max-width: 77%;
+}
+
 /* Basic Panels Layout */
 .box-users {
   float: left;
-  min-width: 33.33%;
+  min-width: 10%;
   padding: 10px;
   text-align: center;
 }
@@ -84,8 +117,7 @@ h3 {
 .box-users ul {
   list-style: none;
   border-style: solid;
-  /* box-shadow: 3px 3px rgb(235, 223, 223);
-  border-color: rgb(235, 223, 223); */
+  border-radius: 10px;
   box-shadow: 3px 3px #52a78a;
   border-color: #52a78a;
   border-width: 2px;
@@ -97,7 +129,7 @@ h3 {
 }
 
 .user-greetings #section-header {
-  padding-top: 100px;
+  text-align: left;
 }
 
 .user-greetings .user-details {
