@@ -14,6 +14,9 @@
     <title>Greetings Application | Welcome</title>
   </head>
   <body>
+
+    <!-- Navigation Bar -->
+
     <header>
       <nav id="navbar">
         <div class="container">
@@ -43,22 +46,28 @@
     </header>
 
     <section class="user-greetings">
+
+      <!-- Side Menu -->
+
       <div class="side-menu">
         <ul>
           <li>
             <a href="#"><i class="fas fa-list fa-1x"></i> List</a>
           </li>
           <li>
-            <a href="#" id="add-user-btn"><i class="fas fa-user-plus fa-1x"></i> Add</a>
+            <a href="#" id="add-user-button"><i class="fas fa-user-plus fa-1x"></i> Add</a>
           </li>
           <li>
-            <a href="#" id="edit-user-btn" ><i class="fas fa-edit fa-1x"></i> Edit</a>
+            <a href="#" id="edit-user-button" ><i class="fas fa-edit fa-1x"></i> Edit</a>
           </li>
           <li>
-            <a href="#"><i class="fas fa-user-times fa-1x"></i> Delete</a>
+            <a href="#" id="delete-user-button" ><i class="fas fa-user-times fa-1x"></i> Delete</a>
           </li>
         </ul>
       </div>
+
+      <!-- Display User Info -->
+
       <div class="user-info">
         <div class="box-users">
           <h2 id="section-header">Basic Panels Layout</h2>
@@ -123,7 +132,24 @@
           </form>
         </div>
       </div>
+      
+      <!-- Delete User Modal -->
+  
+        <div class="delete-user-modal">
+          <div class="delete-user-modal-contents">
+            <div class="close-button-for-delete-user">+</div>
+            <i class="fas fa-user-times fa-3x"></i>
+            <h3 id="delete-greeting-header" >Delete Greeting</h3>
+            <form action="">
+              <input type="text" id="object-id" name="object-id" placeholder="Enter Object Id of the Greeting" />
+              <a href="#" class="submit-button">Submit</a>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+    
+
     <script src="app.js"></script>
   </body>
 </html>

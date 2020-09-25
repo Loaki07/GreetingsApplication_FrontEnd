@@ -151,8 +151,9 @@ h3 {
 
 /* Overlay */
 .add-user-modal,
-.edit-user-modal {
-  background-color: rgba(0, 0, 0, 0.8);
+.edit-user-modal,
+.delete-user-modal {
+  background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -163,7 +164,8 @@ h3 {
 }
 
 .add-user-modal-contents,
-.edit-user-modal-contents {
+.edit-user-modal-contents,
+.delete-user-modal-contents {
   height: 320px;
   width: 500px;
   background-color: white;
@@ -173,9 +175,15 @@ h3 {
   border-radius: 4px;
 }
 
+.delete-user-modal-contents {
+  height: 250px;
+  width: 500px;
+}
+
 .overlay #first-name,
 #last-name,
-#enter-greeting {
+#enter-greeting,
+#object-id {
   margin: 15px auto;
   display: block;
   width: 50%;
@@ -184,7 +192,8 @@ h3 {
 }
 
 .overlay #add-new-greeting-header,
-#edit-greeting-header {
+#edit-greeting-header,
+#delete-greeting-header {
   padding: 5px;
 }
 
@@ -192,7 +201,7 @@ h3 {
   margin-top: 10px;
   padding: 10px;
   border-radius: 4px;
-  background: rgb(194, 194, 193);
+  background: rgb(236, 236, 236);
 }
 
 .overlay .submit-button:hover {
@@ -201,7 +210,8 @@ h3 {
 }
 
 .overlay .close-button-for-add-user,
-.overlay .close-button-for-edit-user {
+.overlay .close-button-for-edit-user,
+.close-button-for-delete-user {
   padding: 5px;
   position: absolute;
   top: 0;
@@ -212,7 +222,9 @@ h3 {
   cursor: pointer;
 }
 
-.overlay .close-button:hover {
+.overlay .close-button-for-add-user,
+.overlay .close-button-for-edit-user,
+.close-button-for-delete-user {
   color: #666;
   border-radius: 4px;
 }
