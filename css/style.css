@@ -107,48 +107,6 @@ h3 {
   max-width: 67%;
 }
 
-/* Basic Panels Layout */
-.box-users {
-  float: left;
-  min-width: 10%;
-  padding: 10px;
-  text-align: center;
-}
-
-.box-users ul {
-  float: left;
-  list-style: none;
-  border-style: solid;
-  border-radius: 10px;
-  box-shadow: 3px 3px #52a78a;
-  border-color: #52a78a;
-  border-width: 2px;
-  margin: 10px;
-}
-
-.box-users ul li {
-  text-align: left;
-  padding: 10px;
-}
-
-.user-greetings #section-header {
-  text-align: left;
-}
-
-.user-greetings .user-details {
-  font-weight: 600;
-}
-
-.user-greetings .details-id {
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.box-users ul:hover {
-  background: #444;
-  color: #7fffd4;
-}
-
 /* Overlay */
 .add-user-modal,
 .edit-user-modal,
@@ -227,4 +185,46 @@ h3 {
 .close-button-for-delete-user {
   color: #666;
   border-radius: 4px;
+}
+
+/* Basic Panels Layout */
+.box-users {
+  float: left;
+  min-width: 10%;
+  padding: 10px;
+  text-align: center;
+}
+
+.box-users ul {
+  float: left;
+  list-style: none;
+  border-style: solid;
+  border-radius: 10px;
+  box-shadow: 3px 3px #52a78a;
+  border-color: #52a78a;
+  border-width: 2px;
+  margin: 10px;
+}
+
+.box-users ul li {
+  text-align: left;
+  padding: 10px;
+}
+
+.user-greetings #section-header {
+  text-align: left;
+}
+
+.user-greetings .user-details {
+  font-weight: 600;
+}
+
+.user-greetings .details-id {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.box-users ul:hover {
+  background: #444;
+  color: #7fffd4;
 }
