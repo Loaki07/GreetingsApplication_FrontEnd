@@ -17,11 +17,14 @@ closeAddFormButton.addEventListener("click", closeAddUserForm);
 closeEditFormButton.addEventListener("click", closeEditUserForm);
 closeDeleteFormButton.addEventListener("click", closeDeleteUserForm);
 
-// Add Users
+/**
+ * Add Users
+ */
 const firstName = document.getElementById("first-name"),
   lastName = document.getElementById("last-name"),
   greetingMessage = document.getElementById("enter-greeting");
 addUserForm = document.querySelector(".add-user-form");
+
 addUserForm.addEventListener("submit", addUserToDataBase);
 
 // Functions to process data
@@ -45,6 +48,36 @@ function checkRequired(inputArr) {
   }
 }
 
+/**
+ * Listing All the users from the database
+ */
+const listAllUsersButton = document.getElementById("list-all-users-button");
+
+listAllUsersButton.addEventListener("click", getAllUsersFromDataBase);
+
+// Function to get all the users from the database
+async function getAllUsersFromDataBase(e) {
+  try {
+    e.preventDefault();
+    const URL = "http://localhost:3000/users";
+
+    const response = await fetch(URL, {
+      "Content-type": "application/json",
+    });
+
+    const results = await response.json();
+
+    let inputParsedToHTML = ``;
+
+    results.forEach((data) => {
+      inputParsedToHTML += parseReceivedInputToHTML(data);
+      document.getElementById("input-from-data-base").innerHTML = inputParsedToHTML;
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // Creating greetings Object
 function createGreetingObject(inputArr) {
   return {
@@ -52,6 +85,26 @@ function createGreetingObject(inputArr) {
     lastName: inputArr[1].value,
     greeting: inputArr[2].value,
   };
+}
+
+// Parse received input from server to HTML to Display
+function parseReceivedInputToHTML(data) {
+  return `<div class="user-details-object">
+  <p class="parent-paragraph-user-details">
+    <span id="object-id" class="user-details">Object Id(${data._id})</span>
+    <span id="greet-user" class="user-details">Hello ${data.firstName.concat(
+      " ",
+      data.lastName
+    )} </span
+      ><span class="details-id">(Greeting)</span>
+    <span id="display-user-name" class="user-details">${data.firstName.concat(
+      " ",
+      data.lastName
+    )} </span
+      ><span class="details-id">(Name)</span>
+    <span id="time-stamp">${data.updatedAt}</span>
+  </p>
+  </div>`;
 }
 
 // Function to Display Forms
