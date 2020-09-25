@@ -80,8 +80,9 @@ h3 {
 
 .user-greetings .side-menu {
   float: left;
-  max-width: 23%;
+  max-width: 33%;
   padding: 20px;
+  text-align: center;
 }
 
 .user-greetings .side-menu ul {
@@ -102,8 +103,8 @@ h3 {
 }
 
 .user-greetings .user-info {
-  float: right;
-  max-width: 77%;
+  float: left;
+  max-width: 67%;
 }
 
 /* Basic Panels Layout */
@@ -115,12 +116,14 @@ h3 {
 }
 
 .box-users ul {
+  float: left;
   list-style: none;
   border-style: solid;
   border-radius: 10px;
   box-shadow: 3px 3px #52a78a;
   border-color: #52a78a;
   border-width: 2px;
+  margin: 10px;
 }
 
 .box-users ul li {
@@ -144,4 +147,66 @@ h3 {
 .box-users ul:hover {
   background: #444;
   color: #7fffd4;
+}
+
+/* Add User Modal */
+.add-user-modal {
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-user-modal-contents {
+  height: 320px;
+  width: 500px;
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  border-radius: 4px;
+}
+
+.add-user-modal #first-name,
+#last-name,
+#enter-greeting {
+  margin: 15px auto;
+  display: block;
+  width: 50%;
+  padding: 8px;
+  border: 1px solid gray;
+}
+
+.add-user-modal #add-new-greeting-modal {
+  padding: 5px;
+}
+
+.add-user-modal .submit-button {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  background: rgb(194, 194, 193);
+}
+
+.add-user-modal .submit-button:hover {
+  background: #444;
+  color: #7fffd4;
+}
+
+.add-user-modal .close-button {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 42px;
+  color: #333;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+.add-user-modal .close-button:hover {
+  color: #666;
 }
