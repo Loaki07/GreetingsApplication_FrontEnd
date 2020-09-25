@@ -141,7 +141,7 @@ h3 {
 .overlay #first-name,
 #last-name,
 #enter-greeting,
-#object-id {
+#object-id-delete-user {
   margin: 15px auto;
   display: block;
   width: 50%;
@@ -195,20 +195,17 @@ h3 {
   text-align: center;
 }
 
-.box-users ul {
+.box-users .user-details-object {
   float: left;
   list-style: none;
   border-style: solid;
   border-radius: 10px;
-  box-shadow: 3px 3px #52a78a;
-  border-color: #52a78a;
+  /* box-shadow: 3px 3px #52a78a;
+  border-color: #52a78a; */
+  box-shadow: 3px 3px #666;
+  border-color: #666;
   border-width: 2px;
   margin: 10px;
-}
-
-.box-users ul li {
-  text-align: left;
-  padding: 10px;
 }
 
 .user-greetings #section-header {
@@ -224,7 +221,15 @@ h3 {
   font-weight: 400;
 }
 
-.box-users ul:hover {
+.box-users ul:hover,
+.box-users .user-details-object:hover {
   background: #444;
   color: #7fffd4;
+}
+
+/* Display In New Line */
+.user-details-object p span {
+  display: block;
+  text-align: left;
+  padding: 5px;
 }

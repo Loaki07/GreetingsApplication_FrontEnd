@@ -71,30 +71,16 @@
       <div class="user-info">
         <div class="box-users">
           <h2 id="section-header">Basic Panels Layout</h2>
-          <ul>
-            <li>Object Id("5f67b3b04cccdd23c06c")</li>
-            <li>
-              <span class="user-details">Hello </span
-              ><span class="details-id">(Greeting)</span>
-            </li>
-            <li>
-              <span class="user-details">Laura </span
-              ><span class="details-id">(Name)</span>
-            </li>
-            <li>15 mins ago</li>
-          </ul>
-          <ul>
-            <li>Object Id("5f67b3b04cccdd23c06c")</li>
-            <li>
-              <span class="user-details">Hello </span
-              ><span class="details-id">(Greeting)</span>
-            </li>
-            <li>
-              <span class="user-details">Laura </span
-              ><span class="details-id">(Name)</span>
-            </li>
-            <li>15 mins ago</li>
-          </ul>
+          <div class="user-details-object">
+            <p class="parent-paragraph-user-details">
+              <span id="object-id" class="user-details">Object Id("5f67b3b04cccdd23c06c")</span>
+              <span id="greet-user" class="user-details">Hello Laura Wayne </span
+                ><span class="details-id">(Greeting)</span>
+              <span id="display-user-name" class="user-details">Laura </span
+                ><span class="details-id">(Name)</span>
+              <span id="time-stamp">15 mins ago</span>  
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -141,7 +127,7 @@
             <i class="fas fa-user-times fa-3x"></i>
             <h3 id="delete-greeting-header" >Delete Greeting</h3>
             <form action="">
-              <input type="text" id="object-id" name="object-id" placeholder="Enter Object Id of the Greeting" />
+              <input type="text" id="object-id-delete-user" name="object-id-delete-user" placeholder="Enter Object Id of the Greeting" />
               <a href="#" class="submit-button">Submit</a>
             </form>
           </div>
