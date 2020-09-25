@@ -52,7 +52,7 @@
             <a href="#" id="add-user-btn"><i class="fas fa-user-plus fa-1x"></i> Add</a>
           </li>
           <li>
-            <a href="#"><i class="fas fa-edit fa-1x"></i> Edit</a>
+            <a href="#" id="edit-user-btn" ><i class="fas fa-edit fa-1x"></i> Edit</a>
           </li>
           <li>
             <a href="#"><i class="fas fa-user-times fa-1x"></i> Delete</a>
@@ -91,18 +91,37 @@
     </section>
 
     <!-- Modal Section -->
+    <!-- Add User Modal -->
 
-    <div class="add-user-modal">
-      <div class="add-user-modal-contents">
-        <div class="close-button">+</div>
-        <i class="fas fa-user-plus fa-3x"></i>
-        <h3 id="add-new-greeting-modal" >Add New Greeting</h3>
-        <form action="">
-          <input type="text" id="first-name" name="first-name" placeholder="Enter First Name" />
-          <input type="text" id="last-name" name="last-name" placeholder="Emter Last Name" />
-          <input type="text" id="enter-greeting" name="enter-greeting" placeholder="Enter Greeting" />
-          <a href="#" class="submit-button">Submit</a>
-        </form>
+    <div class="overlay">
+      <div class="add-user-modal">
+        <div class="add-user-modal-contents">
+          <div class="close-button-for-add-user">+</div>
+          <i class="fas fa-user-plus fa-3x"></i>
+          <h3 id="add-new-greeting-header" >Add New Greeting</h3>
+          <form action="">
+            <input type="text" id="first-name" name="first-name" placeholder="Enter First Name" />
+            <input type="text" id="last-name" name="last-name" placeholder="Emter Last Name" />
+            <input type="text" id="enter-greeting" name="enter-greeting" placeholder="Enter Greeting" />
+            <a href="#" class="submit-button">Submit</a>
+          </form>
+        </div>
+      </div>
+  
+      <!-- Edit User Modal -->
+  
+      <div class="edit-user-modal">
+        <div class="edit-user-modal-contents">
+          <div class="close-button-for-edit-user">+</div>
+          <i class="fas fa-edit fa-3x"></i>
+          <h3 id="edit-greeting-header" >Edit Greeting</h3>
+          <form action="">
+            <input type="text" id="first-name" name="first-name" placeholder="Enter First Name" />
+            <input type="text" id="last-name" name="last-name" placeholder="Emter Last Name" />
+            <input type="text" id="enter-greeting" name="enter-greeting" placeholder="Enter Greeting" />
+            <a href="#" class="submit-button">Submit</a>
+          </form>
+        </div>
       </div>
     </div>
     <script src="app.js"></script>

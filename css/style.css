@@ -149,8 +149,9 @@ h3 {
   color: #7fffd4;
 }
 
-/* Add User Modal */
-.add-user-modal {
+/* Overlay */
+.add-user-modal,
+.edit-user-modal {
   background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
   height: 100%;
@@ -161,7 +162,8 @@ h3 {
   align-items: center;
 }
 
-.add-user-modal-contents {
+.add-user-modal-contents,
+.edit-user-modal-contents {
   height: 320px;
   width: 500px;
   background-color: white;
@@ -171,7 +173,7 @@ h3 {
   border-radius: 4px;
 }
 
-.add-user-modal #first-name,
+.overlay #first-name,
 #last-name,
 #enter-greeting {
   margin: 15px auto;
@@ -181,23 +183,26 @@ h3 {
   border: 1px solid gray;
 }
 
-.add-user-modal #add-new-greeting-modal {
+.overlay #add-new-greeting-header,
+#edit-greeting-header {
   padding: 5px;
 }
 
-.add-user-modal .submit-button {
+.overlay .submit-button {
   margin-top: 10px;
   padding: 10px;
   border-radius: 4px;
   background: rgb(194, 194, 193);
 }
 
-.add-user-modal .submit-button:hover {
+.overlay .submit-button:hover {
   background: #444;
   color: #7fffd4;
 }
 
-.add-user-modal .close-button {
+.overlay .close-button-for-add-user,
+.overlay .close-button-for-edit-user {
+  padding: 5px;
   position: absolute;
   top: 0;
   right: 10px;
@@ -207,6 +212,7 @@ h3 {
   cursor: pointer;
 }
 
-.add-user-modal .close-button:hover {
+.overlay .close-button:hover {
   color: #666;
+  border-radius: 4px;
 }
