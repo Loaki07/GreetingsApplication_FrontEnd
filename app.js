@@ -17,6 +17,43 @@ closeAddFormButton.addEventListener("click", closeAddUserForm);
 closeEditFormButton.addEventListener("click", closeEditUserForm);
 closeDeleteFormButton.addEventListener("click", closeDeleteUserForm);
 
+// Add Users
+const firstName = document.getElementById("first-name"),
+  lastName = document.getElementById("last-name"),
+  greetingMessage = document.getElementById("enter-greeting");
+addUserForm = document.querySelector(".add-user-form");
+addUserForm.addEventListener("submit", addUserToDataBase);
+
+// Functions to process data
+function addUserToDataBase(e) {
+  e.preventDefault();
+  let detailsArr = [firstName, lastName, greetingMessage];
+  checkRequired(detailsArr);
+  let greeting = createGreetingObject(detailsArr);
+}
+
+// Check Required Fields
+function checkRequired(inputArr) {
+  for (let i = 0; i < inputArr.length; i++) {
+    if (inputArr[i].value.trim() === "") {
+      alert("Fill all the required fields");
+      break;
+    } else if (inputArr[i].value.trim().length < 3) {
+      alert("Minimum three characters required in all the fields");
+      break;
+    }
+  }
+}
+
+// Creating greetings Object
+function createGreetingObject(inputArr) {
+  return {
+    firstName: inputArr[0].value,
+    lastName: inputArr[1].value,
+    greeting: inputArr[2].value,
+  };
+}
+
 // Function to Display Forms
 function displayAddUserForm() {
   addUserOverlay.style.display = "flex";
