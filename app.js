@@ -18,37 +18,6 @@ closeEditFormButton.addEventListener("click", closeEditUserForm);
 closeDeleteFormButton.addEventListener("click", closeDeleteUserForm);
 
 /**
- * Add Users
- */
-const firstName = document.getElementById("first-name"),
-  lastName = document.getElementById("last-name"),
-  greetingMessage = document.getElementById("enter-greeting");
-addUserForm = document.querySelector(".add-user-form");
-
-addUserForm.addEventListener("submit", addUserToDataBase);
-
-// Functions to process data
-function addUserToDataBase(e) {
-  e.preventDefault();
-  let detailsArr = [firstName, lastName, greetingMessage];
-  checkRequired(detailsArr);
-  let greeting = createGreetingObject(detailsArr);
-}
-
-// Check Required Fields
-function checkRequired(inputArr) {
-  for (let i = 0; i < inputArr.length; i++) {
-    if (inputArr[i].value.trim() === "") {
-      alert("Fill all the required fields");
-      break;
-    } else if (inputArr[i].value.trim().length < 3) {
-      alert("Minimum three characters required in all the fields");
-      break;
-    }
-  }
-}
-
-/**
  * Listing All the users from the database
  */
 const listAllUsersButton = document.getElementById("list-all-users-button");
@@ -75,6 +44,39 @@ async function getAllUsersFromDataBase(e) {
     });
   } catch (error) {
     console.log(error);
+  }
+}
+
+/**
+ * Add Users
+ */
+const firstName = document.getElementById("first-name"),
+  lastName = document.getElementById("last-name"),
+  greetingMessage = document.getElementById("enter-greeting");
+addUserForm = document.querySelector(".add-user-form");
+
+addUserForm.addEventListener("submit", addUserToDataBase);
+
+// Functions to process data
+function addUserToDataBase(e) {
+  try {
+    e.preventDefault();
+    let detailsArr = [firstName, lastName, greetingMessage];
+    checkRequired(detailsArr);
+    let greeting = createGreetingObject(detailsArr);
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+// Check Required Fields
+function checkRequired(inputArr) {
+  for (let i = 0; i < inputArr.length; i++) {
+    if (inputArr[i].value.trim() === "") {
+      throw Error("Fill all the required fields");
+    } else if (inputArr[i].value.trim().length < 3) {
+      throw Error("Minimum three characters required in all the fields");
+    }
   }
 }
 
