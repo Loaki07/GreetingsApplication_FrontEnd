@@ -40,12 +40,12 @@ async function getAllUsersFromDataBase(event) {
 
     let inputParsedToHTML = ``;
 
-    results.forEach((data) => {
-      inputParsedToHTML += parseReceivedInputToHTML(data);
+    await results.forEach((user) => {
+      inputParsedToHTML += parseReceivedInputToHTML(user);
       document.getElementById('input-from-data-base').innerHTML = inputParsedToHTML;
     });
   } catch (error) {
-    alert(error);
+    console.log(error.message);
   }
 }
 
@@ -110,7 +110,7 @@ async function editUserInDataBase(event) {
     ];
     checkRequired(detailsArr);
 
-    const response = await fetch(URL.concat(editUserObjectId.value), {
+    const response = await fetch(URL + editUserObjectId.value, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -135,10 +135,43 @@ async function editUserInDataBase(event) {
   }
 }
 
+/**
+ * Delete User
+ */
+
+const deleteUserForm = document.querySelector('.delete-user-form'),
+  deleteUserObjectId = document.getElementById('object-id-delete-user');
+
+deleteUserForm.addEventListener('submit', deleteUserInDataBase);
+
+async function deleteUserInDataBase(event) {
+  try {
+    event.preventDefault();
+    checkRequired([deleteUserObjectId]);
+
+    const response = await fetch(URL + deleteUserObjectId.value, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    alert(`User Deleted!`);
+    deleteUserObjectId.value = '';
+    listAllUsersButton.click();
+  } catch (error) {
+    deleteUserObjectId.value = '';
+    alert(error.message);
+  }
+}
+
 // Check Required Fields
 function checkRequired(inputArr) {
   for (let i = 0; i < inputArr.length; i++) {
-    if (inputArr[i].value.trim() === '') {
+    if (
+      inputArr[i].value.trim() === '' ||
+      inputArr[i].value.trim() === null ||
+      inputArr[i].value.trim() === undefined
+    ) {
       throw Error('Fill all the required fields');
     } else if (inputArr[i].value.trim().length < 3) {
       throw Error('Minimum three characters required in all the fields');
@@ -156,21 +189,21 @@ function createGreetingObject(inputArr) {
 }
 
 // Parse received input from server to HTML to Display
-function parseReceivedInputToHTML(data) {
+function parseReceivedInputToHTML(user) {
   return `<div class="user-details-object">
   <p class="parent-paragraph-user-details">
-    <span id="object-id" class="user-details">Object Id(${data._id})</span>
-    <span id="greet-user" class="user-details">Hello ${data.firstName.concat(
+    <span id="object-id" class="user-details">Object Id(${user._id})</span>
+    <span id="greet-user" class="user-details">Hello ${user.firstName.concat(
       ' ',
-      data.lastName
+      user.lastName
     )} </span
       ><span class="details-id">(Greeting)</span>
-    <span id="display-user-name" class="user-details">${data.firstName.concat(
+    <span id="display-user-name" class="user-details">${user.firstName.concat(
       ' ',
-      data.lastName
+      user.lastName
     )} </span
       ><span class="details-id">(Name)</span>
-    <span id="time-stamp">${data.updatedAt}</span>
+    <span id="time-stamp">${user.updatedAt}</span>
   </p>
   </div>`;
 }
