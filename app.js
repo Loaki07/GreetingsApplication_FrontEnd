@@ -21,7 +21,7 @@ closeDeleteFormButton.addEventListener('click', closeDeleteUserForm);
 const URL = 'http://localhost:3000/users/';
 
 /**
- * Listing All the users from the database
+ * List All the users from the database
  */
 const listAllUsersButton = document.getElementById('list-all-users-button');
 
@@ -66,7 +66,7 @@ async function addUserToDataBase(event) {
     const detailsArr = [firstName, lastName, greetingMessage];
     checkRequired(detailsArr);
     const greeting = createGreetingObject(detailsArr);
-    console.log(greeting);
+
     const response = await fetch(URL, {
       method: 'POST',
       Accept: 'application/json, */*',
@@ -76,16 +76,18 @@ async function addUserToDataBase(event) {
       body: JSON.stringify(greeting),
     });
     alert(`Successfully added new user ${firstName.value.concat(' ', lastName.value)}!`);
-    
+
     // Clearing the Form Fields
     clearFields();
-    
+
     // Clicking the List Button to display the new user on the home screen
     listAllUsersButton.click();
   } catch (error) {
     alert(error.message);
   }
 }
+
+const editUserForm = document.getElementById()
 
 // Check Required Fields
 function checkRequired(inputArr) {
