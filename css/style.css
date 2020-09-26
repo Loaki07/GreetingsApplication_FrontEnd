@@ -138,6 +138,11 @@ h3 {
   border-radius: 4px;
 }
 
+.edit-user-modal-contents {
+  height: 550px;
+  width: 500px;
+}
+
 .delete-user-modal-contents {
   height: 250px;
   width: 500px;
@@ -146,7 +151,11 @@ h3 {
 .overlay #first-name,
 #last-name,
 #enter-greeting,
-#object-id-delete-user {
+#edit-user-first-name,
+#edit-user-enter-greeting,
+#edit-user-last-name,
+#object-id-delete-user,
+#object-id-edit-user {
   margin: 15px auto;
   display: block;
   width: 50%;
@@ -161,7 +170,7 @@ h3 {
 }
 
 .overlay .add-user-submit-button,
-.overlay .edit-user-submit-button, 
+.overlay .edit-user-submit-button,
 .overlay .delete-user-submit-button {
   margin-top: 10px;
   outline: 0;
@@ -172,9 +181,12 @@ h3 {
   background: rgb(236, 236, 236);
 }
 
-.overlay .submit-button:hover,
+.overlay .edit-user-submit-button:hover,
+.overlay .delete-user-submit-button:hover,
 .overlay .add-user-submit-button:hover,
-.overlay .close-button-for-add-user:hover {
+.overlay .close-button-for-add-user:hover,
+.overlay .close-button-for-edit-user:hover,
+.overlay .close-button-for-delete-user:hover {
   background: #444;
   color: #7fffd4;
 }

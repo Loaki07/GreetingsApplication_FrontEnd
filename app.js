@@ -83,11 +83,57 @@ async function addUserToDataBase(event) {
     // Clicking the List Button to display the new user on the home screen
     listAllUsersButton.click();
   } catch (error) {
+    clearFields();
     alert(error.message);
   }
 }
 
-const editUserForm = document.getElementById()
+/**
+ * Edit User
+ */
+const editUserFirstName = document.getElementById('edit-user-first-name'),
+  editUserLastName = document.getElementById('edit-user-last-name'),
+  editUserGreeting = document.getElementById('edit-user-enter-greeting');
+(editUserObjectId = document.getElementById('object-id-edit-user')),
+  (editUserForm = document.querySelector('.edit-user-form'));
+
+editUserForm.addEventListener('submit', editUserInDataBase);
+
+async function editUserInDataBase(event) {
+  try {
+    event.preventDefault();
+    const detailsArr = [
+      editUserObjectId,
+      editUserFirstName,
+      editUserLastName,
+      editUserGreeting,
+    ];
+    checkRequired(detailsArr);
+
+    const response = await fetch(URL.concat(editUserObjectId.value), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName: editUserFirstName.value,
+        lastName: editUserLastName.value,
+        greeting: editUserGreeting.value,
+      }),
+    });
+    alert(
+      `Successfully added edited user ${editUserFirstName.value.concat(
+        ' ',
+        editUserLastName.value
+      )}!`
+    );
+    clearEditFormFields();
+    listAllUsersButton.click();
+  } catch (error) {
+    clearEditFormFields();
+    alert(error.message);
+  }
+}
 
 // Check Required Fields
 function checkRequired(inputArr) {
@@ -132,6 +178,13 @@ function parseReceivedInputToHTML(data) {
 // Function to Clear Fields
 function clearFields() {
   (firstName.value = ''), (lastName.value = ''), (greetingMessage.value = '');
+}
+
+function clearEditFormFields() {
+  (editUserObjectId.value = ''),
+    (editUserFirstName.value = ''),
+    (editUserLastName.value = ''),
+    (editUserGreeting.value = '');
 }
 
 // Function to Display Forms
