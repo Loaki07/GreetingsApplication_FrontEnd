@@ -1,3 +1,22 @@
+/*******************************************************************************************
+ *
+ * Execution       : execute index.html using Live Server or run directly on Browser
+ * Purpose         : Greetings App
+ *
+ * @description    : Implemention of fronend frame technologies to create a web GUI
+ *                   application, with pop-forms, css-stlying, etc and integrate this
+ *                   frontend to the backend of Greetings Application using Fetch Api.
+ *                   Hence, being able to connect directly to the data base and also
+ *                   required logical operations.
+ *
+ * @file           : index.html
+ * @overview       : Greetings Application
+ * @module         : Greetings Application
+ * @version        : 1.0
+ * @since          : 20/11/2020
+ *
+ * *****************************************************************************************/
+
 // UI Elements
 const addUserButton = document.getElementById('add-user-button'),
   editUserButton = document.getElementById('edit-user-button'),
