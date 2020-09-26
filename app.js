@@ -1,37 +1,39 @@
 // UI Elements
-const addUserButton = document.getElementById("add-user-button"),
-  editUserButton = document.getElementById("edit-user-button"),
-  deleteUserButton = document.getElementById("delete-user-button"),
-  closeAddFormButton = document.querySelector(".close-button-for-add-user"),
-  closeEditFormButton = document.querySelector(".close-button-for-edit-user"),
-  closeDeleteFormButton = document.querySelector(".close-button-for-delete-user"),
-  addUserOverlay = document.querySelector(".add-user-modal"),
-  editUserOverlay = document.querySelector(".edit-user-modal"),
-  deleteUserOverlay = document.querySelector(".delete-user-modal");
+const addUserButton = document.getElementById('add-user-button'),
+  editUserButton = document.getElementById('edit-user-button'),
+  deleteUserButton = document.getElementById('delete-user-button'),
+  closeAddFormButton = document.querySelector('.close-button-for-add-user'),
+  closeEditFormButton = document.querySelector('.close-button-for-edit-user'),
+  closeDeleteFormButton = document.querySelector('.close-button-for-delete-user'),
+  addUserOverlay = document.querySelector('.add-user-modal'),
+  editUserOverlay = document.querySelector('.edit-user-modal'),
+  deleteUserOverlay = document.querySelector('.delete-user-modal');
 
 // Event Listeners
-addUserButton.addEventListener("click", displayAddUserForm);
-editUserButton.addEventListener("click", displayEditUserForm);
-deleteUserButton.addEventListener("click", displayDeleteUserForm);
-closeAddFormButton.addEventListener("click", closeAddUserForm);
-closeEditFormButton.addEventListener("click", closeEditUserForm);
-closeDeleteFormButton.addEventListener("click", closeDeleteUserForm);
+addUserButton.addEventListener('click', displayAddUserForm);
+editUserButton.addEventListener('click', displayEditUserForm);
+deleteUserButton.addEventListener('click', displayDeleteUserForm);
+closeAddFormButton.addEventListener('click', closeAddUserForm);
+closeEditFormButton.addEventListener('click', closeEditUserForm);
+closeDeleteFormButton.addEventListener('click', closeDeleteUserForm);
+
+// URL
+const URL = 'http://localhost:3000/users/';
 
 /**
  * Listing All the users from the database
  */
-const listAllUsersButton = document.getElementById("list-all-users-button");
+const listAllUsersButton = document.getElementById('list-all-users-button');
 
-listAllUsersButton.addEventListener("click", getAllUsersFromDataBase);
+listAllUsersButton.addEventListener('click', getAllUsersFromDataBase);
 
 // Function to get all the users from the database
-async function getAllUsersFromDataBase(e) {
+async function getAllUsersFromDataBase(event) {
   try {
-    e.preventDefault();
-    const URL = "http://localhost:3000/users";
+    event.preventDefault();
 
     const response = await fetch(URL, {
-      "Content-type": "application/json",
+      'Content-Type': 'application/json',
     });
 
     const results = await response.json();
@@ -40,30 +42,46 @@ async function getAllUsersFromDataBase(e) {
 
     results.forEach((data) => {
       inputParsedToHTML += parseReceivedInputToHTML(data);
-      document.getElementById("input-from-data-base").innerHTML = inputParsedToHTML;
+      document.getElementById('input-from-data-base').innerHTML = inputParsedToHTML;
     });
   } catch (error) {
-    console.log(error);
+    alert(error);
   }
 }
 
 /**
  * Add Users
  */
-const firstName = document.getElementById("first-name"),
-  lastName = document.getElementById("last-name"),
-  greetingMessage = document.getElementById("enter-greeting");
-addUserForm = document.querySelector(".add-user-form");
+const firstName = document.getElementById('first-name'),
+  lastName = document.getElementById('last-name'),
+  greetingMessage = document.getElementById('enter-greeting');
+addUserForm = document.querySelector('.add-user-form');
 
-addUserForm.addEventListener("submit", addUserToDataBase);
+addUserForm.addEventListener('submit', addUserToDataBase);
 
-// Functions to process data
-function addUserToDataBase(e) {
+// Function to add new User data
+async function addUserToDataBase(event) {
   try {
-    e.preventDefault();
-    let detailsArr = [firstName, lastName, greetingMessage];
+    event.preventDefault();
+    const detailsArr = [firstName, lastName, greetingMessage];
     checkRequired(detailsArr);
-    let greeting = createGreetingObject(detailsArr);
+    const greeting = createGreetingObject(detailsArr);
+    console.log(greeting);
+    const response = await fetch(URL, {
+      method: 'POST',
+      Accept: 'application/json, */*',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(greeting),
+    });
+    alert(`Successfully added new user ${firstName.value.concat(' ', lastName.value)}!`);
+    
+    // Clearing the Form Fields
+    clearFields();
+    
+    // Clicking the List Button to display the new user on the home screen
+    listAllUsersButton.click();
   } catch (error) {
     alert(error.message);
   }
@@ -72,10 +90,10 @@ function addUserToDataBase(e) {
 // Check Required Fields
 function checkRequired(inputArr) {
   for (let i = 0; i < inputArr.length; i++) {
-    if (inputArr[i].value.trim() === "") {
-      throw Error("Fill all the required fields");
+    if (inputArr[i].value.trim() === '') {
+      throw Error('Fill all the required fields');
     } else if (inputArr[i].value.trim().length < 3) {
-      throw Error("Minimum three characters required in all the fields");
+      throw Error('Minimum three characters required in all the fields');
     }
   }
 }
@@ -95,12 +113,12 @@ function parseReceivedInputToHTML(data) {
   <p class="parent-paragraph-user-details">
     <span id="object-id" class="user-details">Object Id(${data._id})</span>
     <span id="greet-user" class="user-details">Hello ${data.firstName.concat(
-      " ",
+      ' ',
       data.lastName
     )} </span
       ><span class="details-id">(Greeting)</span>
     <span id="display-user-name" class="user-details">${data.firstName.concat(
-      " ",
+      ' ',
       data.lastName
     )} </span
       ><span class="details-id">(Name)</span>
@@ -109,28 +127,33 @@ function parseReceivedInputToHTML(data) {
   </div>`;
 }
 
+// Function to Clear Fields
+function clearFields() {
+  (firstName.value = ''), (lastName.value = ''), (greetingMessage.value = '');
+}
+
 // Function to Display Forms
 function displayAddUserForm() {
-  addUserOverlay.style.display = "flex";
+  addUserOverlay.style.display = 'flex';
 }
 
 function displayEditUserForm() {
-  editUserOverlay.style.display = "flex";
+  editUserOverlay.style.display = 'flex';
 }
 
 function displayDeleteUserForm() {
-  deleteUserOverlay.style.display = "flex";
+  deleteUserOverlay.style.display = 'flex';
 }
 
 // Function to close Forms
 function closeAddUserForm() {
-  addUserOverlay.style.display = "none";
+  addUserOverlay.style.display = 'none';
 }
 
 function closeEditUserForm() {
-  editUserOverlay.style.display = "none";
+  editUserOverlay.style.display = 'none';
 }
 
 function closeDeleteUserForm() {
-  deleteUserOverlay.style.display = "none";
+  deleteUserOverlay.style.display = 'none';
 }

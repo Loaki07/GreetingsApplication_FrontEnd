@@ -16,5 +16,10 @@
     "createdAt": "2020-09-21T21:33:22.171Z",
     "updatedAt": "2020-09-21T21:33:22.171Z",
     "__v": 0
+  },
+  {
+    "firstName": "Kakashi",
+    "lastName": "Hatake",
+    "greeting": "Yo!"
   }
 ]

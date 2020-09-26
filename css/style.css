@@ -13,7 +13,7 @@
 /* Main Stlying */
 html,
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.7em;
 }
 
@@ -31,7 +31,7 @@ h3 {
 /* Utility Classes */
 .container {
   margin: auto;
-  max-width: 1200px;
+  max-width: 1100px;
   overflow: auto;
   padding: 0 20px;
 }
@@ -85,7 +85,7 @@ h3 {
 
 .user-greetings .side-menu {
   float: left;
-  max-width: 33%;
+  max-width: 30%;
   padding: 20px;
   text-align: center;
 }
@@ -97,7 +97,7 @@ h3 {
 .user-greetings .side-menu ul li a {
   display: block;
   text-align: center;
-  padding: 50px;
+  padding: 40px;
   font-size: 30px;
 }
 
@@ -109,7 +109,7 @@ h3 {
 
 .user-greetings .user-info {
   float: left;
-  max-width: 67%;
+  max-width: 70%;
 }
 
 /* Overlay */
@@ -224,10 +224,10 @@ h3 {
   list-style: none;
   border-style: solid;
   border-radius: 10px;
-  /* box-shadow: 3px 3px #52a78a;
-  border-color: #52a78a; */
   box-shadow: 3px 3px #666;
   border-color: #666;
+  /* box-shadow: 3px 3px #52a78a;
+  border-color: #52a78a; */
   border-width: 2px;
   margin: 10px;
 }
@@ -251,7 +251,7 @@ h3 {
   color: #7fffd4;
 }
 
-/* Display In New Line */
+/* Display details in New Line */
 .user-details-object p span {
   display: block;
   text-align: left;
