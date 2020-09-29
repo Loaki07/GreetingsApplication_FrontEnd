@@ -97,6 +97,7 @@ async function addUserToDataBase(event) {
 
     // Clearing the Form Fields
     clearFields();
+    closeAddFormButton.click();
 
     // Clicking the List Button to display the new user on the home screen
     listAllUsersButton.click();
@@ -146,6 +147,7 @@ async function editUserInDataBase(event) {
       )}!`
     );
     clearEditFormFields();
+    closeEditFormButton.click();
     listAllUsersButton.click();
   } catch (error) {
     clearEditFormFields();
@@ -175,6 +177,7 @@ async function deleteUserInDataBase(event) {
     });
     alert(`User Deleted!`);
     deleteUserObjectId.value = '';
+    closeDeleteFormButton.click();
     listAllUsersButton.click();
   } catch (error) {
     deleteUserObjectId.value = '';

@@ -88,7 +88,7 @@ h3 {
   background-color: rgb(237, 241, 243);
   float: left;
   max-width: 30%;
-  height: 1200px;
+  height: 1250px;
   border-radius: 5px;
   padding: 20px;
   text-align: center;
@@ -232,7 +232,8 @@ h3 {
 .box-users {
   float: left;
   min-width: 100%;
-  margin-left: 150px;
+  /* margin-left: 150px; */
+  margin: 0px 75px 0px 125px;
   padding: 10px;
   text-align: center;
 }
