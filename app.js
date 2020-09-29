@@ -198,6 +198,8 @@ function checkRequired(inputArr) {
     let inputValue = inputArr[i].value.trim();
     if (inputValue === '' || inputValue === null || inputValue === undefined) {
       throw Error('Fill all the required fields');
+    } else if (inputValue.match(/\d+/g) !== null) {
+      throw Error('Numbers are not permitted');
     } else if (inputValue.length < 3) {
       throw Error('Minimum three characters required in all the fields');
     }
