@@ -49,6 +49,7 @@ listAllUsersButton.addEventListener('click', getAllUsersFromDataBase);
 // Function to get all the users from the database
 async function getAllUsersFromDataBase(event) {
   try {
+    event.preventDefault();
     const response = await fetch(URL, {
       'Content-Type': 'application/json',
     });
@@ -79,6 +80,7 @@ addUserForm.addEventListener('submit', addUserToDataBase);
 // Function to add new User data
 async function addUserToDataBase(event) {
   try {
+    event.preventDefault();
     const detailsArr = [firstName, lastName, greetingMessage];
     checkRequired(detailsArr);
     const greeting = createGreetingObject(detailsArr);
@@ -117,6 +119,7 @@ editUserForm.addEventListener('submit', editUserInDataBase);
 
 async function editUserInDataBase(event) {
   try {
+    event.preventDefault();
     const detailsArr = [
       editUserObjectId,
       editUserFirstName,
@@ -161,6 +164,7 @@ deleteUserForm.addEventListener('submit', deleteUserInDataBase);
 
 async function deleteUserInDataBase(event) {
   try {
+    event.preventDefault();
     checkRequired([deleteUserObjectId]);
 
     const response = await fetch(URL + deleteUserObjectId.value, {
@@ -181,11 +185,8 @@ async function deleteUserInDataBase(event) {
 // Check Required Fields
 function checkRequired(inputArr) {
   for (let i = 0; i < inputArr.length; i++) {
-    if (
-      inputArr[i].value.trim() === '' ||
-      inputArr[i].value.trim() === null ||
-      inputArr[i].value.trim() === undefined
-    ) {
+    let inputValue = inputArr[i].value.trim();
+    if (inputValue === '' || inputValue === null || inputValue === undefined) {
       throw Error('Fill all the required fields');
     } else if (inputArr[i].value.trim().length < 3) {
       throw Error('Minimum three characters required in all the fields');
