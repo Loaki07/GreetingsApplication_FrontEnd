@@ -190,7 +190,8 @@ h3 {
 .overlay .add-user-submit-button:hover,
 .overlay .close-button-for-add-user:hover,
 .overlay .close-button-for-edit-user:hover,
-.overlay .close-button-for-delete-user:hover {
+.overlay .close-button-for-delete-user:hover,
+.buttons-greetings-card:hover {
   background: #444;
   color: #7fffd4;
 }
@@ -244,8 +245,7 @@ h3 {
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px rgb(196, 196, 196);
   border-color: #666;
-  /* box-shadow: 3px 3px #52a78a;
-  border-color: #52a78a; */
+  /* border-color: #52a78a; */
   border-width: 2px;
   margin: 10px;
 }
@@ -264,9 +264,12 @@ h3 {
 }
 
 .box-users ul:hover {
-  /* .box-users .user-details-object:hover { */
   background: #444;
   color: #7fffd4;
+}
+
+.user-info .input-from-data-base .user-details-object {
+  min-width: 300px;
 }
 
 /* Display details in New Line */
@@ -274,4 +277,22 @@ h3 {
   display: block;
   text-align: left;
   padding: 5px;
+}
+
+.user-details-object button {
+  display: block;
+  float: right;
+}
+
+/* Greeting Card Buttons */
+.buttons-greetings-card {
+  cursor: pointer;
+  margin: 10px;
+  padding: 10px;
+  outline: 0;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  box-shadow: 1px 1px 1px 1px rgb(196, 196, 196);
 }

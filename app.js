@@ -46,10 +46,18 @@ const listAllUsersButton = document.getElementById('list-all-users-button');
 
 listAllUsersButton.addEventListener('click', getAllUsersFromDataBase);
 
+/**
+ * ObjectId Map
+ */
+let idCount = 1;
+let ObjectIdMap = new Map();
+
 // Function to get all the users from the database
 async function getAllUsersFromDataBase(event) {
   try {
     event.preventDefault();
+    idCount = 1;
+    ObjectIdMap.clear();
     const response = await fetch(URL, {
       'Content-Type': 'application/json',
     });
@@ -59,8 +67,9 @@ async function getAllUsersFromDataBase(event) {
     let inputParsedToHTML = ``;
 
     await results.forEach((user) => {
-      inputParsedToHTML += parseReceivedInputToHTML(user);
-      document.getElementById('input-from-data-base').innerHTML = inputParsedToHTML;
+      inputParsedToHTML += parseReceivedInputToHTML(user, idCount);
+      document.querySelector('.input-from-data-base').innerHTML = inputParsedToHTML;
+      idCount += 1;
     });
   } catch (error) {
     console.log(error.message);
@@ -121,15 +130,11 @@ editUserForm.addEventListener('submit', editUserInDataBase);
 async function editUserInDataBase(event) {
   try {
     event.preventDefault();
-    const detailsArr = [
-      editUserObjectId,
-      editUserFirstName,
-      editUserLastName,
-      editUserGreeting,
-    ];
+    let cardId = ObjectIdMap.get(parseInt(editUserObjectId.value));
+    const detailsArr = [editUserFirstName, editUserLastName, editUserGreeting];
     checkRequired(detailsArr);
 
-    const response = await fetch(URL + editUserObjectId.value, {
+    const response = await fetch(URL + cardId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -147,9 +152,10 @@ async function editUserInDataBase(event) {
       )}!`
     );
     clearEditFormFields();
-    closeEditFormButton.click();
     listAllUsersButton.click();
+    closeEditFormButton.click();
   } catch (error) {
+    closeEditFormButton.click();
     clearEditFormFields();
     alert(error.message);
   }
@@ -167,9 +173,9 @@ deleteUserForm.addEventListener('submit', deleteUserInDataBase);
 async function deleteUserInDataBase(event) {
   try {
     event.preventDefault();
-    checkRequired([deleteUserObjectId]);
+    let cardId = ObjectIdMap.get(parseInt(deleteUserObjectId.value));
 
-    const response = await fetch(URL + deleteUserObjectId.value, {
+    const response = await fetch(URL + cardId, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -181,6 +187,7 @@ async function deleteUserInDataBase(event) {
     listAllUsersButton.click();
   } catch (error) {
     deleteUserObjectId.value = '';
+    closeDeleteFormButton.click();
     alert(error.message);
   }
 }
@@ -191,7 +198,7 @@ function checkRequired(inputArr) {
     let inputValue = inputArr[i].value.trim();
     if (inputValue === '' || inputValue === null || inputValue === undefined) {
       throw Error('Fill all the required fields');
-    } else if (inputArr[i].value.trim().length < 3) {
+    } else if (inputValue.length < 3) {
       throw Error('Minimum three characters required in all the fields');
     }
   }
@@ -207,10 +214,11 @@ function createGreetingObject(inputArr) {
 }
 
 // Parse received input from server to HTML to Display
-function parseReceivedInputToHTML(user) {
+function parseReceivedInputToHTML(user, idCount) {
+  ObjectIdMap.set(idCount, user._id);
   return `<div class="user-details-object">
   <p class="parent-paragraph-user-details">
-    <span id="object-id" class="user-details">Object Id(${user._id})</span>
+    <span id="object-id" class="user-details">Object Id(${idCount})</span>
     <span id="greet-user" class="user-details">Hello</span
       ><span class="details-id">(Greeting)</span>
     <span id="display-user-name" class="user-details">${user.firstName.concat(
@@ -218,8 +226,11 @@ function parseReceivedInputToHTML(user) {
       user.lastName
     )} </span
       ><span class="details-id">(Name)</span>
-    <span id="time-stamp">${user.updatedAt}</span>
-  </p>
+      <span id="time-stamp">${user.updatedAt.slice(0, 10)}
+      <button class="buttons-greetings-card" onclick="displayDeleteUserForm()"><i class="fas fa-user-times fa-1x"></i></button>
+      <button class="buttons-greetings-card" onclick="displayEditUserForm()" ><i class="fas fa-edit fa-1x"></i></button>
+      </span>
+    </p>
   </div>`;
 }
 
