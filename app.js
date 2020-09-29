@@ -49,8 +49,6 @@ listAllUsersButton.addEventListener('click', getAllUsersFromDataBase);
 // Function to get all the users from the database
 async function getAllUsersFromDataBase(event) {
   try {
-    event.preventDefault();
-
     const response = await fetch(URL, {
       'Content-Type': 'application/json',
     });
@@ -81,7 +79,6 @@ addUserForm.addEventListener('submit', addUserToDataBase);
 // Function to add new User data
 async function addUserToDataBase(event) {
   try {
-    event.preventDefault();
     const detailsArr = [firstName, lastName, greetingMessage];
     checkRequired(detailsArr);
     const greeting = createGreetingObject(detailsArr);
@@ -120,7 +117,6 @@ editUserForm.addEventListener('submit', editUserInDataBase);
 
 async function editUserInDataBase(event) {
   try {
-    event.preventDefault();
     const detailsArr = [
       editUserObjectId,
       editUserFirstName,
@@ -165,7 +161,6 @@ deleteUserForm.addEventListener('submit', deleteUserInDataBase);
 
 async function deleteUserInDataBase(event) {
   try {
-    event.preventDefault();
     checkRequired([deleteUserObjectId]);
 
     const response = await fetch(URL + deleteUserObjectId.value, {
