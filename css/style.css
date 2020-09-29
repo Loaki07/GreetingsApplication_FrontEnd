@@ -260,8 +260,8 @@ h3 {
   font-weight: 400;
 }
 
-.box-users ul:hover,
-.box-users .user-details-object:hover {
+.box-users ul:hover {
+  /* .box-users .user-details-object:hover { */
   background: #444;
   color: #7fffd4;
 }
