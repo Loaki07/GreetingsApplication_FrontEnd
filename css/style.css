@@ -38,7 +38,7 @@ h3 {
 
 /* Navbar */
 #navbar {
-  background: #fff;
+  background: rgb(236, 236, 236);
   color: #333;
   overflow: auto;
 }
@@ -84,8 +84,10 @@ h3 {
 }
 
 .user-greetings .side-menu {
+  background-color: rgb(244, 251, 255);
   float: left;
   max-width: 30%;
+  height: 100%;
   padding: 20px;
   text-align: center;
 }

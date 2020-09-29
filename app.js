@@ -212,10 +212,7 @@ function parseReceivedInputToHTML(user) {
   return `<div class="user-details-object">
   <p class="parent-paragraph-user-details">
     <span id="object-id" class="user-details">Object Id(${user._id})</span>
-    <span id="greet-user" class="user-details">Hello ${user.firstName.concat(
-      ' ',
-      user.lastName
-    )} </span
+    <span id="greet-user" class="user-details">Hello</span
       ><span class="details-id">(Greeting)</span>
     <span id="display-user-name" class="user-details">${user.firstName.concat(
       ' ',
