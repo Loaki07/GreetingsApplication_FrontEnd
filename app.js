@@ -170,21 +170,46 @@ const deleteUserForm = document.querySelector('.delete-user-form'),
 
 deleteUserForm.addEventListener('submit', deleteUserInDataBase);
 
+async function deleteUserDirectlyFromGreetingsCard(card) {
+  try {
+    deleteUserButton.parentElement.children[0].textContent;
+    let idElementValue = card.parentElement.parentElement.children[0].textContent;
+    let idElementValueParsedToInt = parseInt(idElementValue.match(/\d+/g));
+    let cardId = ObjectIdMap.get(idElementValueParsedToInt);
+
+    let isConfirmed = confirm('Are you sure you want to delete user?');
+    if (isConfirmed) {
+      const response = await fetch(URL + cardId, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      alert(`User Deleted!`);
+      listAllUsersButton.click();
+    }
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
 async function deleteUserInDataBase(event) {
   try {
     event.preventDefault();
     let cardId = ObjectIdMap.get(parseInt(deleteUserObjectId.value));
-
-    const response = await fetch(URL + cardId, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    alert(`User Deleted!`);
-    deleteUserObjectId.value = '';
-    closeDeleteFormButton.click();
-    listAllUsersButton.click();
+    let isConfirmed = confirm('Are you sure you want to delete');
+    if (isConfirmed) {
+      const response = await fetch(URL + cardId, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      alert(`User Deleted!`);
+      deleteUserObjectId.value = '';
+      closeDeleteFormButton.click();
+      listAllUsersButton.click();
+    }
   } catch (error) {
     deleteUserObjectId.value = '';
     closeDeleteFormButton.click();
@@ -229,8 +254,8 @@ function parseReceivedInputToHTML(user, idCount) {
     )} </span
       ><span class="details-id">(Name)</span>
       <span id="time-stamp">${user.updatedAt.slice(0, 10)}
-      <button class="buttons-greetings-card" onclick="displayDeleteUserForm()"><i class="fas fa-user-times fa-1x"></i></button>
-      <button class="buttons-greetings-card" onclick="displayEditUserForm()" ><i class="fas fa-edit fa-1x"></i></button>
+      <button class="buttons-greetings-card card-delete-button" onclick="deleteUserDirectlyFromGreetingsCard(this)"><i class="fas fa-user-times fa-1x"></i></button>
+      <button class="buttons-greetings-card" onclick="displayEditUserForm(this)" ><i class="fas fa-edit fa-1x"></i></button>
       </span>
     </p>
   </div>`;
