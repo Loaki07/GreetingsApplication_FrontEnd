@@ -127,6 +127,11 @@ const editUserFirstName = document.getElementById('edit-user-first-name'),
 
 editUserForm.addEventListener('submit', editUserInDataBase);
 
+document.querySelector('#edit-user-button').addEventListener('click', () => {
+  clearEditFormFields();
+  editUserObjectId.disabled = false;
+});
+
 async function editUserInDataBase(event) {
   try {
     event.preventDefault();
@@ -161,6 +166,28 @@ async function editUserInDataBase(event) {
   }
 }
 
+function editUserDirectlyFromGreetingsCard(card) {
+  try {
+    let idElementValue = card.parentElement.parentElement.children[0].textContent,
+      idElementValueParsedToInt = parseInt(idElementValue.match(/\d+/g));
+    let greetingMessageElementValue =
+      card.parentElement.parentElement.children[1].textContent;
+    (fullName = card.parentElement.parentElement.children[3].textContent.split(' ')),
+      (firstNameElementValue = fullName[0]),
+      (lastNameElementValue = fullName[1]);
+
+    // Pre filling the placeholder text for the edit from
+    displayEditUserForm();
+    editUserFirstName.parentElement.children[1].value = idElementValueParsedToInt;
+    document.getElementById('object-id-edit-user').disabled = true;
+    editUserFirstName.parentElement.children[4].value = firstNameElementValue;
+    editUserFirstName.parentElement.children[7].value = lastNameElementValue;
+    editUserFirstName.parentElement.children[10].value = greetingMessageElementValue;
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
 /**
  * Delete User
  */
@@ -172,7 +199,6 @@ deleteUserForm.addEventListener('submit', deleteUserInDataBase);
 
 async function deleteUserDirectlyFromGreetingsCard(card) {
   try {
-    deleteUserButton.parentElement.children[0].textContent;
     let idElementValue = card.parentElement.parentElement.children[0].textContent;
     let idElementValueParsedToInt = parseInt(idElementValue.match(/\d+/g));
     let cardId = ObjectIdMap.get(idElementValueParsedToInt);
@@ -249,7 +275,7 @@ function parseReceivedInputToHTML(user, idCount) {
       ><span class="details-id">(Name)</span>
       <span id="time-stamp">${user.updatedAt.slice(0, 10)}
       <button class="buttons-greetings-card card-delete-button" onclick="deleteUserDirectlyFromGreetingsCard(this)"><i class="fas fa-user-times fa-1x"></i></button>
-      <button class="buttons-greetings-card" onclick="displayEditUserForm(this)" ><i class="fas fa-edit fa-1x"></i></button>
+      <button class="buttons-greetings-card" onclick="editUserDirectlyFromGreetingsCard(this)" ><i class="fas fa-edit fa-1x"></i></button>
       </span>
     </p>
   </div>`;
