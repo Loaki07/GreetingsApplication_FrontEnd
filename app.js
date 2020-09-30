@@ -176,18 +176,8 @@ async function deleteUserDirectlyFromGreetingsCard(card) {
     let idElementValue = card.parentElement.parentElement.children[0].textContent;
     let idElementValueParsedToInt = parseInt(idElementValue.match(/\d+/g));
     let cardId = ObjectIdMap.get(idElementValueParsedToInt);
-
-    let isConfirmed = confirm('Are you sure you want to delete user?');
-    if (isConfirmed) {
-      const response = await fetch(URL + cardId, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      alert(`User Deleted!`);
-      listAllUsersButton.click();
-    }
+    await fetchApiToDeleteUsers(cardId);
+    listAllUsersButton.click();
   } catch (error) {
     alert(error.message);
   }
@@ -197,23 +187,27 @@ async function deleteUserInDataBase(event) {
   try {
     event.preventDefault();
     let cardId = ObjectIdMap.get(parseInt(deleteUserObjectId.value));
-    let isConfirmed = confirm('Are you sure you want to delete');
-    if (isConfirmed) {
-      const response = await fetch(URL + cardId, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      alert(`User Deleted!`);
-      deleteUserObjectId.value = '';
-      closeDeleteFormButton.click();
-      listAllUsersButton.click();
-    }
+    await fetchApiToDeleteUsers(cardId);
+    deleteUserObjectId.value = '';
+    closeDeleteFormButton.click();
+    listAllUsersButton.click();
   } catch (error) {
     deleteUserObjectId.value = '';
     closeDeleteFormButton.click();
     alert(error.message);
+  }
+}
+
+async function fetchApiToDeleteUsers(cardId) {
+  let isConfirmed = confirm('Are you sure you want to delete user?');
+  if (isConfirmed) {
+    const response = await fetch(URL + cardId, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    alert(`User Deleted!`);
   }
 }
 
