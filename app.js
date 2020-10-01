@@ -150,15 +150,15 @@ async function editUserInDataBase(event) {
         greeting: editUserGreeting.value,
       }),
     });
+    clearEditFormFields();
+    listAllUsersButton.click();
+    closeEditFormButton.click();
     alert(
       `Successfully added edited user ${editUserFirstName.value.concat(
         ' ',
         editUserLastName.value
       )}!`
     );
-    clearEditFormFields();
-    listAllUsersButton.click();
-    closeEditFormButton.click();
   } catch (error) {
     closeEditFormButton.click();
     clearEditFormFields();
@@ -202,8 +202,11 @@ async function deleteUserDirectlyFromGreetingsCard(card) {
     let idElementValue = card.parentElement.parentElement.children[0].textContent;
     let idElementValueParsedToInt = parseInt(idElementValue.match(/\d+/g));
     let cardId = ObjectIdMap.get(idElementValueParsedToInt);
-    await fetchApiToDeleteUsers(cardId);
-    listAllUsersButton.click();
+    let isFetchSuccessful = await fetchApiToDeleteUsers(cardId);
+    if (isFetchSuccessful) {
+      listAllUsersButton.click();
+      alert(`User Deleted!`);
+    }
   } catch (error) {
     alert(error.message);
   }
@@ -213,10 +216,15 @@ async function deleteUserInDataBase(event) {
   try {
     event.preventDefault();
     let cardId = ObjectIdMap.get(parseInt(deleteUserObjectId.value));
-    await fetchApiToDeleteUsers(cardId);
-    deleteUserObjectId.value = '';
-    closeDeleteFormButton.click();
-    listAllUsersButton.click();
+    let isFetchSuccessful = await fetchApiToDeleteUsers(cardId);
+    if (isFetchSuccessful) {
+      listAllUsersButton.click();
+      deleteUserObjectId.value = '';
+      closeDeleteFormButton.click();
+      listAllUsersButton.click();
+      alert(`User Deleted!`);
+    }
+    
   } catch (error) {
     deleteUserObjectId.value = '';
     closeDeleteFormButton.click();
@@ -233,7 +241,7 @@ async function fetchApiToDeleteUsers(cardId) {
         'Content-Type': 'application/json',
       },
     });
-    alert(`User Deleted!`);
+    return true
   }
 }
 
