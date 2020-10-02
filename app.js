@@ -66,7 +66,7 @@ async function getAllUsersFromDataBase(event) {
 
     let inputParsedToHTML = ``;
 
-    await results.forEach((user) => {
+    await results.reverse().forEach((user) => {
       inputParsedToHTML += parseReceivedInputToHTML(user, idCount);
       document.querySelector('.input-from-data-base').innerHTML = inputParsedToHTML;
       idCount += 1;
@@ -104,15 +104,12 @@ async function addUserToDataBase(event) {
         body: JSON.stringify(greeting),
       });
 
-      // Clearing the Form Fields
-      clearFields();
-      listAllUsersButton.click();
-      await closeAddFormButton.click();
       alert(
         `Successfully added new user ${firstName.value.concat(' ', lastName.value)}!`
       );
-
-      // Clicking the List Button to display the new user on the home screen
+      clearFields();
+      listAllUsersButton.click();
+      closeAddFormButton.click();
     }
   } catch (error) {
     clearFields();
@@ -120,7 +117,7 @@ async function addUserToDataBase(event) {
   }
 }
 
-// $(addUserForm).submit(() => {
+// $('.add-user-form').submit(() => {
 //   displayCompletionAlert();
 // });
 
