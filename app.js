@@ -49,14 +49,14 @@ listAllUsersButton.addEventListener('click', getAllUsersFromDataBase);
 /**
  * ObjectId Map
  */
-let idCount = 1;
+let idCount = 100;
 let ObjectIdMap = new Map();
 
 // Function to get all the users from the database
 async function getAllUsersFromDataBase(event) {
   try {
     event.preventDefault();
-    idCount = 1;
+    idCount = 100;
     ObjectIdMap.clear();
     const response = await fetch(URL, {
       'Content-Type': 'application/json',
@@ -91,25 +91,29 @@ async function addUserToDataBase(event) {
   try {
     event.preventDefault();
     const detailsArr = [firstName, lastName, greetingMessage];
-    checkRequired(detailsArr);
+    let isCheckedForRequired = checkRequired(detailsArr);
     const greeting = createGreetingObject(detailsArr);
 
-    const response = await fetch(URL, {
-      method: 'POST',
-      Accept: 'application/json, */*',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(greeting),
-    });
-    alert(`Successfully added new user ${firstName.value.concat(' ', lastName.value)}!`);
+    if (isCheckedForRequired) {
+      const response = await fetch(URL, {
+        method: 'POST',
+        Accept: 'application/json, */*',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(greeting),
+      });
+      alert(
+        `Successfully added new user ${firstName.value.concat(' ', lastName.value)}!`
+      );
 
-    // Clearing the Form Fields
-    clearFields();
-    closeAddFormButton.click();
+      // Clearing the Form Fields
+      clearFields();
+      closeAddFormButton.click();
 
-    // Clicking the List Button to display the new user on the home screen
-    listAllUsersButton.click();
+      // Clicking the List Button to display the new user on the home screen
+      listAllUsersButton.click();
+    }
   } catch (error) {
     clearFields();
     alert(error.message);
@@ -178,11 +182,11 @@ function editUserDirectlyFromGreetingsCard(card) {
 
     // Pre filling the placeholder text for the edit from
     displayEditUserForm();
-    editUserFirstName.parentElement.children[1].value = idElementValueParsedToInt;
+    editUserFirstName.parentElement.parentElement.children[0].children[1].value = idElementValueParsedToInt;
     document.getElementById('object-id-edit-user').disabled = true;
-    editUserFirstName.parentElement.children[4].value = firstNameElementValue;
-    editUserFirstName.parentElement.children[7].value = lastNameElementValue;
-    editUserFirstName.parentElement.children[10].value = greetingMessageElementValue;
+    editUserFirstName.parentElement.parentElement.children[1].children[1].value = firstNameElementValue;
+    editUserFirstName.parentElement.parentElement.children[2].children[1].value = lastNameElementValue;
+    editUserFirstName.parentElement.parentElement.children[3].children[1].value = greetingMessageElementValue;
   } catch (error) {
     alert(error.message);
   }
@@ -224,7 +228,6 @@ async function deleteUserInDataBase(event) {
       listAllUsersButton.click();
       alert(`User Deleted!`);
     }
-    
   } catch (error) {
     deleteUserObjectId.value = '';
     closeDeleteFormButton.click();
@@ -241,22 +244,46 @@ async function fetchApiToDeleteUsers(cardId) {
         'Content-Type': 'application/json',
       },
     });
-    return true
+    return true;
   }
 }
 
 // Check Required Fields
 function checkRequired(inputArr) {
-  for (let i = 0; i < inputArr.length; i++) {
-    let inputValue = inputArr[i].value.trim();
-    if (inputValue === '' || inputValue === null || inputValue === undefined) {
-      throw Error('Fill all the required fields');
+  let flag = false;
+  inputArr.forEach(function (input) {
+    let inputValue = input.value.trim();
+    if (inputValue === '') {
+      showError(input, `${getFieldName(input)} is required`);
     } else if (inputValue.match(/\d+/g) !== null) {
-      throw Error('Numbers are not permitted');
+      showError(input, `${getFieldName(input)} cannot contain numbers`);
     } else if (inputValue.length < 3) {
-      throw Error('Minimum three characters required in all the fields');
+      showError(input, `${getFieldName(input)} must contain minimum 3 characters`);
+    } else {
+      showSuccess(input);
+      flag = true;
     }
-  }
+  });
+  return flag;
+}
+
+// Show input error message
+function showError(input, message) {
+  const formControl = input.parentElement;
+  formControl.className = 'form-control error';
+  const small = formControl.querySelector('small');
+  small.innerText = message;
+}
+
+// Show success Outline
+function showSuccess(input) {
+  const formControl = input.parentElement;
+  formControl.className = 'form-control success';
+}
+
+// Get Field Name
+function getFieldName(input) {
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
 
 // Creating greetings Object
@@ -266,6 +293,18 @@ function createGreetingObject(inputArr) {
     lastName: inputArr[1].value,
     greeting: inputArr[2].value,
   };
+}
+
+// Function to Clear Fields
+function clearFields() {
+  (firstName.value = ''), (lastName.value = ''), (greetingMessage.value = '');
+}
+
+function clearEditFormFields() {
+  (editUserObjectId.value = ''),
+    (editUserFirstName.value = ''),
+    (editUserLastName.value = ''),
+    (editUserGreeting.value = '');
 }
 
 // Parse received input from server to HTML to Display
@@ -287,18 +326,6 @@ function parseReceivedInputToHTML(user, idCount) {
       </span>
     </p>
   </div>`;
-}
-
-// Function to Clear Fields
-function clearFields() {
-  (firstName.value = ''), (lastName.value = ''), (greetingMessage.value = '');
-}
-
-function clearEditFormFields() {
-  (editUserObjectId.value = ''),
-    (editUserFirstName.value = ''),
-    (editUserLastName.value = ''),
-    (editUserGreeting.value = '');
 }
 
 // Function to Display Forms

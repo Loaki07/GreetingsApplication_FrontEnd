@@ -87,15 +87,21 @@
           <i class="fas fa-user-plus fa-3x"></i>
           <h3 id="add-new-greeting-header" >Add New Greeting</h3>
           <form class="add-user-form" action="">
-            <label for="first-name">First Name</label>
-            <input type="text" id="first-name" name="first-name" placeholder="Enter First Name" required />
-            <small>Error message</small>
-            <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last-name" placeholder="Emter Last Name" required />
-            <small>Error message</small>
-            <label for="enter-greeting">Greeting Message</label>
-            <input type="text" id="enter-greeting" name="enter-greeting" placeholder="Enter Greeting" required />
-            <small>Error message</small>
+            <div class="form-control">
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" name="first-name" placeholder="Enter First Name" />
+              <small>Error message</small>
+            </div>
+            <div class="form-control">
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" name="last-name" placeholder="Emter Last Name" />
+              <small>Error message</small>
+            </div>
+            <div class="form-control">
+              <label for="enter-greeting">Greeting Message</label>
+              <input type="text" id="enter-greeting" name="enter-greeting" placeholder="Enter Greeting" />
+              <small>Error message</small>
+            </div>
             <button class="add-user-submit-button">Submit</button>
           </form>
         </div>
@@ -109,18 +115,26 @@
           <i class="fas fa-edit fa-3x"></i>
           <h3 id="edit-greeting-header" >Edit Greeting</h3>
           <form class="edit-user-form" action="">
-            <label for="object-id-edit-user">Object ID</label>
-            <input type="text" id="object-id-edit-user" name="object-id-edit-user" placeholder="Enter Object Id of the Greeting" required />
-            <small>Error message</small>
-            <label for="edit-user-first-name">First Name</label>
-            <input type="text" id="edit-user-first-name" name="edit-user-first-name" placeholder="Enter First Name" required />
-            <small>Error message</small>
-            <label for="edit-user-last-name">Last Name</label>
-            <input type="text" id="edit-user-last-name" name="edit-user-last-name" placeholder="Emter Last Name" required />
-            <small>Error message</small>
-            <label for="edit-user-enter-greeting">Greeting Message</label>
-            <input type="text" id="edit-user-enter-greeting" name="edit-user-enter-greeting" placeholder="Enter Greeting" />
-            <small>Error message</small>
+            <div class="form-control">
+              <label for="object-id-edit-user">Object ID</label>
+              <input type="text" id="object-id-edit-user" name="object-id-edit-user" placeholder="Enter Object Id of the Greeting" required />
+              <small>Error message</small>
+            </div>
+            <div class="form-control">
+              <label for="edit-user-first-name">First Name</label>
+              <input type="text" id="edit-user-first-name" name="edit-user-first-name" placeholder="Enter First Name" />
+              <small>Error message</small>
+            </div>
+            <div class="form-control">
+              <label for="edit-user-last-name">Last Name</label>
+              <input type="text" id="edit-user-last-name" name="edit-user-last-name" placeholder="Emter Last Name" />
+              <small>Error message</small>
+            </div>
+            <div class="form-control">
+              <label for="edit-user-enter-greeting">Greeting Message</label>
+              <input type="text" id="edit-user-enter-greeting" name="edit-user-enter-greeting" placeholder="Enter Greeting" />
+              <small>Error message</small>
+            </div>
             <button class="edit-user-submit-button">Submit</button>
           </form>
         </div>
@@ -134,7 +148,9 @@
             <i class="fas fa-user-times fa-3x"></i>
             <h3 id="delete-greeting-header" >Delete Greeting</h3>
             <form class="delete-user-form" action="">
-              <input type="text" id="object-id-delete-user" name="object-id-delete-user" placeholder="Enter Object Id of the Greeting" required />
+              <div class="form-control">
+                <input type="text" id="object-id-delete-user" name="object-id-delete-user" placeholder="Enter Object Id of the Greeting" />
+              </div>
               <button class="delete-user-submit-button">Submit</button>
             </form>
           </div>
