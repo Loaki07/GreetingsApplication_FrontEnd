@@ -4,7 +4,7 @@ Beginner level project to learn basics of the MERN Stack. This is the Frontend W
 
 Greetings Backend Application: https://github.com/Loaki07/GreetingsApplication_Js.git
 
-##GUI
+## GUI
 ![GreetingsApplication_FrontEnd](https://user-images.githubusercontent.com/66478092/94977355-fbbff900-0535-11eb-9cc7-71e6d1a3f004.jpeg)
 
 ## Overview & Description
