@@ -133,6 +133,10 @@ editUserForm.addEventListener('submit', editUserInDataBase);
 
 document.querySelector('#edit-user-button').addEventListener('click', () => {
   clearEditFormFields();
+  editUserFirstName.parentElement.parentElement.children[0].children[0].style.display =
+    'block';
+  editUserFirstName.parentElement.parentElement.children[0].children[1].style.display =
+    'block';
   editUserObjectId.disabled = false;
 });
 
@@ -184,6 +188,10 @@ function editUserDirectlyFromGreetingsCard(card) {
     displayEditUserForm();
     editUserFirstName.parentElement.parentElement.children[0].children[1].value = idElementValueParsedToInt;
     document.getElementById('object-id-edit-user').disabled = true;
+    editUserFirstName.parentElement.parentElement.children[0].children[0].style.display =
+      'none';
+    editUserFirstName.parentElement.parentElement.children[0].children[1].style.display =
+      'none';
     editUserFirstName.parentElement.parentElement.children[1].children[1].value = firstNameElementValue;
     editUserFirstName.parentElement.parentElement.children[2].children[1].value = lastNameElementValue;
     editUserFirstName.parentElement.parentElement.children[3].children[1].value = greetingMessageElementValue;
