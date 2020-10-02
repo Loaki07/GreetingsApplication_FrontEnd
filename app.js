@@ -81,49 +81,41 @@ async function getAllUsersFromDataBase(event) {
  */
 const firstName = document.getElementById('first-name'),
   lastName = document.getElementById('last-name'),
-  greetingMessage = document.getElementById('enter-greeting');
-addUserForm = document.querySelector('.add-user-form');
+  greetingMessage = document.getElementById('enter-greeting'),
+  addUserForm = document.getElementById('add-user-form');
 
 addUserForm.addEventListener('submit', addUserToDataBase);
 
 // Function to add new User data
-async function addUserToDataBase(event) {
-  try {
-    event.preventDefault();
-    const detailsArr = [firstName, lastName, greetingMessage];
-    let isCheckedForRequired = checkRequired(detailsArr);
-    const greeting = createGreetingObject(detailsArr);
+function addUserToDataBase(event) {
+  event.preventDefault();
+  const detailsArr = [firstName, lastName, greetingMessage];
+  let isValidationPassed = checkRequired(detailsArr);
+  const greeting = createGreetingObject(detailsArr);
 
-    if (isCheckedForRequired) {
-      const response = await fetch(URL, {
-        method: 'POST',
-        Accept: 'application/json, */*',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(greeting),
+  if (isValidationPassed) {
+    fetch(URL, {
+      method: 'POST',
+      Accept: 'application/json, */*',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(greeting),
+    })
+      .then(() => {
+        listAllUsersButton.click();
+        alert(
+          `Successfully added new user ${firstName.value.concat(' ', lastName.value)}!`
+        );
+      })
+      .catch((error) => {
+        clearFields();
+        alert(error.message);
       });
-
-      alert(
-        `Successfully added new user ${firstName.value.concat(' ', lastName.value)}!`
-      );
-      clearFields();
-      listAllUsersButton.click();
-      closeAddFormButton.click();
-    }
-  } catch (error) {
     clearFields();
-    alert(error.message);
+    closeAddFormButton.click();
   }
 }
-
-// $('.add-user-form').submit(() => {
-//   displayCompletionAlert();
-// });
-
-// function displayCompletionAlert() {
-//   alert(`Successfully added new user ${firstName.value.concat(' ', lastName.value)}!`);
-// }
 
 /**
  * Edit User
@@ -145,14 +137,14 @@ document.querySelector('#edit-user-button').addEventListener('click', () => {
   editUserObjectId.disabled = false;
 });
 
-async function editUserSideMenuButtom(event) {
-  try {
-    event.preventDefault();
-    let cardId = ObjectIdMap.get(parseInt(editUserObjectId.value));
-    const detailsArr = [editUserFirstName, editUserLastName, editUserGreeting];
-    checkRequired(detailsArr);
+function editUserSideMenuButtom(event) {
+  event.preventDefault();
+  let cardId = ObjectIdMap.get(parseInt(editUserObjectId.value));
+  const detailsArr = [editUserFirstName, editUserLastName, editUserGreeting];
+  let isValidationPassed = checkRequired(detailsArr);
 
-    const response = await fetch(URL + cardId, {
+  if (isValidationPassed) {
+    fetch(URL + cardId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -162,20 +154,23 @@ async function editUserSideMenuButtom(event) {
         lastName: editUserLastName.value,
         greeting: editUserGreeting.value,
       }),
-    });
+    })
+      .then(() => {
+        listAllUsersButton.click();
+        alert(
+          `Successfully added edited user ${editUserFirstName.value.concat(
+            ' ',
+            editUserLastName.value
+          )}!`
+        );
+      })
+      .catch((error) => {
+        closeEditFormButton.click();
+        clearEditFormFields();
+        alert(error.message);
+      });
     clearEditFormFields();
-    listAllUsersButton.click();
     closeEditFormButton.click();
-    alert(
-      `Successfully added edited user ${editUserFirstName.value.concat(
-        ' ',
-        editUserLastName.value
-      )}!`
-    );
-  } catch (error) {
-    closeEditFormButton.click();
-    clearEditFormFields();
-    alert(error.message);
   }
 }
 
@@ -214,33 +209,25 @@ const deleteUserForm = document.querySelector('.delete-user-form'),
 
 deleteUserForm.addEventListener('submit', deleteUserSideMenu);
 
-async function deleteUsersCardButton(card) {
+function deleteUsersCardButton(card) {
   try {
     let idElementValue = card.parentElement.parentElement.children[0].textContent;
     let idElementValueParsedToInt = parseInt(idElementValue.match(/\d+/g));
     let cardId = ObjectIdMap.get(idElementValueParsedToInt);
-    let isFetchSuccessful = await fetchApiToDeleteUsers(cardId);
-    if (isFetchSuccessful) {
-      listAllUsersButton.click();
-      alert(`User Deleted!`);
-    }
+    fetchApiToDeleteUsers(cardId);
   } catch (error) {
     alert(error.message);
   }
 }
 
-async function deleteUserSideMenu(event) {
+function deleteUserSideMenu(event) {
   try {
     event.preventDefault();
     let cardId = ObjectIdMap.get(parseInt(deleteUserObjectId.value));
-    let isFetchSuccessful = await fetchApiToDeleteUsers(cardId);
-    if (isFetchSuccessful) {
-      listAllUsersButton.click();
-      deleteUserObjectId.value = '';
-      closeDeleteFormButton.click();
-      listAllUsersButton.click();
-      alert(`User Deleted!`);
-    }
+    fetchApiToDeleteUsers(cardId);
+
+    deleteUserObjectId.value = '';
+    closeDeleteFormButton.click();
   } catch (error) {
     deleteUserObjectId.value = '';
     closeDeleteFormButton.click();
@@ -251,11 +238,14 @@ async function deleteUserSideMenu(event) {
 async function fetchApiToDeleteUsers(cardId) {
   let isConfirmed = confirm('Are you sure you want to delete user?');
   if (isConfirmed) {
-    const response = await fetch(URL + cardId, {
+    await fetch(URL + cardId, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
+    }).then(() => {
+      listAllUsersButton.click();
+      alert(`User Deleted!`);
     });
     return true;
   }
@@ -341,7 +331,9 @@ function parseReceivedInputToHTML(user, idCount) {
       user.lastName
     )} </span
       ><span class="details-id">(Name)</span>
-      <span id="time-stamp">${user.updatedAt.slice(0, 10)}
+      <span id="time-stamp">${user.updatedAt
+        .slice(11, 16)
+        .concat(', ', user.updatedAt.slice(0, 10))}
       <button class="buttons-greetings-card card-delete-button" onclick="deleteUsersCardButton(this)"><i class="fas fa-user-times fa-1x"></i></button>
       <button class="buttons-greetings-card" onclick="editUserCardButton(this)" ><i class="fas fa-edit fa-1x"></i></button>
       </span>
