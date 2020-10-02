@@ -263,10 +263,17 @@ function checkRequired(inputArr) {
     let inputValue = input.value.trim();
     if (inputValue === '') {
       showError(input, `${getFieldName(input)} is required`);
+      flag = false;
     } else if (inputValue.match(/\d+/g) !== null) {
       showError(input, `${getFieldName(input)} cannot contain numbers`);
+      flag = false;
     } else if (inputValue.length < 3) {
-      showError(input, `${getFieldName(input)} must contain minimum 3 characters`);
+      showError(
+        input,
+        `${getFieldName(input)} must contain minimum 3 
+      characters`
+      );
+      flag = false;
     } else {
       showSuccess(input);
       flag = true;
@@ -279,6 +286,7 @@ function checkRequired(inputArr) {
 function showError(input, message) {
   const formControl = input.parentElement;
   formControl.className = 'form-control error';
+  console.log(formControl.className);
   const small = formControl.querySelector('small');
   small.innerText = message;
 }

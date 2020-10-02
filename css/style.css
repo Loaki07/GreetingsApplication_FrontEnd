@@ -254,6 +254,10 @@ h3 {
   border-color: var(--success-color);
 }
 
+.form-control.success small {
+  visibility: hidden;
+}
+
 .form-control.error input {
   border-color: var(--error-color);
 }
@@ -335,4 +339,3 @@ h3 {
   background: none;
   box-shadow: 1px 1px 1px 1px rgb(196, 196, 196);
 }
-
