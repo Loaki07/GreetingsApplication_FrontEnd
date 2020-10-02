@@ -103,22 +103,30 @@ async function addUserToDataBase(event) {
         },
         body: JSON.stringify(greeting),
       });
+
+      // Clearing the Form Fields
+      clearFields();
+      listAllUsersButton.click();
+      await closeAddFormButton.click();
       alert(
         `Successfully added new user ${firstName.value.concat(' ', lastName.value)}!`
       );
 
-      // Clearing the Form Fields
-      clearFields();
-      closeAddFormButton.click();
-
       // Clicking the List Button to display the new user on the home screen
-      listAllUsersButton.click();
     }
   } catch (error) {
     clearFields();
     alert(error.message);
   }
 }
+
+// $(addUserForm).submit(() => {
+//   displayCompletionAlert();
+// });
+
+// function displayCompletionAlert() {
+//   alert(`Successfully added new user ${firstName.value.concat(' ', lastName.value)}!`);
+// }
 
 /**
  * Edit User
@@ -129,7 +137,7 @@ const editUserFirstName = document.getElementById('edit-user-first-name'),
 (editUserObjectId = document.getElementById('object-id-edit-user')),
   (editUserForm = document.querySelector('.edit-user-form'));
 
-editUserForm.addEventListener('submit', editUserInDataBase);
+editUserForm.addEventListener('submit', editUserSideMenuButtom);
 
 document.querySelector('#edit-user-button').addEventListener('click', () => {
   clearEditFormFields();
@@ -140,7 +148,7 @@ document.querySelector('#edit-user-button').addEventListener('click', () => {
   editUserObjectId.disabled = false;
 });
 
-async function editUserInDataBase(event) {
+async function editUserSideMenuButtom(event) {
   try {
     event.preventDefault();
     let cardId = ObjectIdMap.get(parseInt(editUserObjectId.value));
@@ -174,7 +182,7 @@ async function editUserInDataBase(event) {
   }
 }
 
-function editUserDirectlyFromGreetingsCard(card) {
+function editUserCardButton(card) {
   try {
     let idElementValue = card.parentElement.parentElement.children[0].textContent,
       idElementValueParsedToInt = parseInt(idElementValue.match(/\d+/g));
@@ -207,9 +215,9 @@ function editUserDirectlyFromGreetingsCard(card) {
 const deleteUserForm = document.querySelector('.delete-user-form'),
   deleteUserObjectId = document.getElementById('object-id-delete-user');
 
-deleteUserForm.addEventListener('submit', deleteUserInDataBase);
+deleteUserForm.addEventListener('submit', deleteUserSideMenu);
 
-async function deleteUserDirectlyFromGreetingsCard(card) {
+async function deleteUsersCardButton(card) {
   try {
     let idElementValue = card.parentElement.parentElement.children[0].textContent;
     let idElementValueParsedToInt = parseInt(idElementValue.match(/\d+/g));
@@ -224,7 +232,7 @@ async function deleteUserDirectlyFromGreetingsCard(card) {
   }
 }
 
-async function deleteUserInDataBase(event) {
+async function deleteUserSideMenu(event) {
   try {
     event.preventDefault();
     let cardId = ObjectIdMap.get(parseInt(deleteUserObjectId.value));
@@ -337,8 +345,8 @@ function parseReceivedInputToHTML(user, idCount) {
     )} </span
       ><span class="details-id">(Name)</span>
       <span id="time-stamp">${user.updatedAt.slice(0, 10)}
-      <button class="buttons-greetings-card card-delete-button" onclick="deleteUserDirectlyFromGreetingsCard(this)"><i class="fas fa-user-times fa-1x"></i></button>
-      <button class="buttons-greetings-card" onclick="editUserDirectlyFromGreetingsCard(this)" ><i class="fas fa-edit fa-1x"></i></button>
+      <button class="buttons-greetings-card card-delete-button" onclick="deleteUsersCardButton(this)"><i class="fas fa-user-times fa-1x"></i></button>
+      <button class="buttons-greetings-card" onclick="editUserCardButton(this)" ><i class="fas fa-edit fa-1x"></i></button>
       </span>
     </div>
   </div>`;
