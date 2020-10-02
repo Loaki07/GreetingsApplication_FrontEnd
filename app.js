@@ -327,7 +327,7 @@ function clearEditFormFields() {
 function parseReceivedInputToHTML(user, idCount) {
   ObjectIdMap.set(idCount, user._id);
   return `<div class="user-details-object">
-  <p class="parent-paragraph-user-details">
+  <div class="parent-paragraph-user-details">
     <span id="object-id" class="user-details">Object Id(${idCount})</span>
     <span id="greet-user" class="user-details">Hello</span
       ><span class="details-id">(Greeting)</span>
@@ -340,7 +340,7 @@ function parseReceivedInputToHTML(user, idCount) {
       <button class="buttons-greetings-card card-delete-button" onclick="deleteUserDirectlyFromGreetingsCard(this)"><i class="fas fa-user-times fa-1x"></i></button>
       <button class="buttons-greetings-card" onclick="editUserDirectlyFromGreetingsCard(this)" ><i class="fas fa-edit fa-1x"></i></button>
       </span>
-    </p>
+    </div>
   </div>`;
 }
 

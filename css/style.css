@@ -315,7 +315,7 @@ h3 {
 }
 
 /* Display details in New Line */
-.user-details-object p span {
+.user-details-object span {
   display: block;
   text-align: left;
   padding: 5px;
